@@ -1,0 +1,169 @@
+/* Определение CSS-переменных для удобства настройки */
+:root {
+  --primary-color: #0072ff;       /* Основной синий цвет */
+  --secondary-color: #00c6ff;     /* Более светлый синий цвет */
+  --accent-color: #FFD700;       /* Золотистый цвет для эффектов наведения */
+  --text-color: #333;            /* Темно-серый цвет текста */
+  --background-color: #f0f0f0;   /* Светло-серый цвет фона */
+  --shadow-color: rgba(0, 0, 0, 0.2); /* Цвет тени с прозрачностью 20% */
+}
+
+/* Базовые стили для body */
+body {
+  margin: 0;                    /* Удаление стандартных полей body */
+  font-family: 'Roboto', sans-serif; /* Использование шрифта Roboto */
+  overflow-x: hidden;           /* Предотвращение горизонтальной полосы прокрутки */
+  min-height: 100vh;            /* Обеспечение заполнения высоты viewport */
+  background-color: var(--background-color); /* Использование переменной цвета фона */
+  color: var(--text-color);     /* Использование переменной цвета текста */
+}
+
+/* Стили для контейнера фона */
+.background-container {
+  position: relative;           /* Необходимо для абсолютного позиционирования ::before */
+  min-height: 100vh;            /* Заполнение высоты viewport */
+  width: 100%;                  /* Полная ширина */
+  overflow: hidden;             /* Скрытие переполнения содержимого */
+}
+
+/* Псевдоэлемент для анимированного градиентного фона */
+.background-container::before {
+  content: "";                  /* Обязательно для псевдоэлементов */
+  position: absolute;           /* Абсолютное позиционирование внутри контейнера */
+  top: 0;                       /* Верхний край вверху контейнера */
+  left: 0;                      /* Левый край слева контейнера */
+  width: 100%;                  /* Полная ширина */
+  height: 100%;                 /* Полная высота */
+  z-index: -1;                  /* Размещение за другим содержимым */
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Анимированный градиент */
+  background-size: 400% 400%;   /* Размер анимации градиента */
+  animation: gradientAnimation 15s ease infinite; /* Анимация градиента */
+}
+
+/* Стили для основного контейнера контента */
+.content-container {
+  z-index: 1;                  /* Размещение поверх фона */
+  display: flex;                /* Использование flexbox для макета */
+  flex-direction: column;       /* Вертикальное расположение элементов */
+  min-height: 100vh;            /* Заполнение высоты viewport */
+  opacity: 0;                  /* Первоначально скрыт */
+  transform: translateY(50px);  /* Первоначально сдвинут вниз */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; /* Плавный переход */
+}
+
+/* Стили, когда добавляется класс 'show' (запускается JavaScript) */
+.content-container.show {
+  opacity: 1;                  /* Показать контент */
+  transform: translateY(0);    /* Вернуть в обычное положение */
+}
+
+/* Стили для заголовка */
+.header {
+  display: flex;                /* Использование flexbox для макета */
+  align-items: center;          /* Вертикальное выравнивание элементов */
+  justify-content: space-between; /* Распределение пространства между элементами */
+  padding: 15px;                /* Добавление отступов */
+  background-color: rgba(255, 255, 255, 0.9); /* Слегка непрозрачный белый фон */
+  border-radius: 8px;          /* Скругленные углы */
+  margin: 10px;                 /* Добавление полей */
+  box-shadow: 0 4px 8px var(--shadow-color); /* Добавление тени */
+}
+
+/* Стили для логотипа */
+.logo {
+  font-size: 24px;             /* Размер шрифта */
+  font-weight: bold;           /* Жирный шрифт */
+  color: #00a699;              /* Указанный цвет */
+}
+
+/* Стили для навигации */
+.nav {
+  margin-left: auto;           /* Сдвиг вправо */
+  margin-right: 10px;          /* Добавление поля */
+}
+
+.nav ul {
+  list-style: none;           /* Удаление маркеров списка */
+  padding: 0;                  /* Удаление стандартного отступа */
+  margin: 0;                  /* Удаление стандартного поля */
+  display: flex;                /* Использование flexbox для горизонтального макета */
+}
+
+.nav li {
+  margin-right: 15px;          /* Добавление поля между элементами списка */
+}
+
+.nav a {
+  text-decoration: none;       /* Удаление подчеркивания у ссылок */
+  color: #666;                 /* Серый цвет ссылок */
+}
+
+.contact {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.phone {
+  color: #00a699;
+  margin-left: 5px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.glow-button {
+  background-color: #333;      /* Темный цвет фона */
+  color: white;                /* Белый цвет текста */
+  padding: 10px 20px;          /* Добавление отступов */
+  border: none;                /* Удаление стандартной рамки */
+  border-radius: 5px;          /* Скругленные углы */
+  cursor: pointer;             /* Изменение курсора на указатель при наведении */
+  transition: all 0.3s ease;   /* Плавный переход всех свойств */
+  box-shadow: 0 0 10px var(--shadow-color); /* Добавление тени */
+}
+
+.glow-button:hover {
+  background-image: linear-gradient(to right, var(--accent-color), var(--accent-color)); /* Золотистый градиент при наведении */
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Увеличенная тень при наведении */
+}
+
+/* Медиа-запросы для адаптивного дизайна */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;   /* Вертикальное расположение элементов на маленьких экранах */
+    align-items: flex-start;  /* Выравнивание элементов по началу */
+  }
+  .logo {
+    margin-bottom: 10px;     /* Добавление поля снизу логотипа */
+  }
+  .nav ul {
+    flex-direction: column;   /* Вертикальное расположение элементов навигации */
+  }
+  .nav li {
+    margin-right: 0;         /* Удаление горизонтального поля */
+    margin-bottom: 10px;      /* Добавление вертикального поля */
+  }
+  .contact, .buttons {
+    margin-right: 0;         /* Удаление правого поля */
+  }
+  .contact {
+    margin-top: 10px;        /* Добавление верхнего поля */
+  }
+  .buttons {
+    margin-top: 10px;        /* Добавление верхнего поля */
+  }
+  .glow-button {
+    width: 100%;              /* Кнопки занимают всю ширину */
+    margin-bottom: 10px;      /* Добавление нижнего поля */
+  }
+}
+
+/* Ключевые кадры для анимации градиента */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; } /* Начальное положение */
+  50% { background-position: 100% 50%; }/* Среднее положение */
+  100% { background-position: 0% 50%; } /* Конечное положение */
+}
